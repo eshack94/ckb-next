@@ -176,6 +176,10 @@ static const devcmd* get_vtable(ushort vendor, ushort product){
     }
 }
 
+#ifdef OS_WINDOWS
+static void* devmain(usbdevice* kb){
+}
+#else
 // USB device main loop
 /// brief .
 ///
@@ -255,7 +259,7 @@ static void* devmain(usbdevice* kb){
     readlines_ctx_free(linectx);
     return 0;
 }
-
+#endif
 /// brief .
 ///
 /// \brief _setupusb A horrible function for setting up an usb device

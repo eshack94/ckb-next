@@ -48,7 +48,9 @@ void sighandler2(int type){
 void sighandler(int type){
     signal(SIGTERM, sighandler2);
     signal(SIGINT, sighandler2);
+#ifndef OS_WINDOWS
     signal(SIGQUIT, sighandler2);
+#endif
     printf("\n[I] Caught signal %d\n", type);
     quit();
     exit(0);
@@ -118,6 +120,9 @@ int main(int argc, char** argv){
         }
     }
 
+#ifdef OS_WINDOWS
+#warning PID check is a stub
+#else
     // Check PID, quit if already running
     char pidpath[strlen(devpath) + 6];
     snprintf(pidpath, sizeof(pidpath), "%s0/pid", devpath);
@@ -136,7 +141,7 @@ int main(int argc, char** argv){
             }
         }
     }
-
+#endif
     // Read parameters
     int forceroot = 1;
     for(int i = 1; i < argc; i++){
@@ -194,6 +199,7 @@ int main(int argc, char** argv){
     if(!mkdevpath(keyboard))
         ckb_info("Root controller ready at %s0\n", devpath);
 
+#ifndef OS_WINDOWS
     // Set signals
     sigset_t signals;
     sigfillset(&signals);
@@ -205,6 +211,7 @@ int main(int argc, char** argv){
     signal(SIGTERM, sighandler);
     signal(SIGINT, sighandler);
     signal(SIGQUIT, sighandler);
+#endif
 
     // Start the USB system
     int result = usbmain();
