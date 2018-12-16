@@ -379,4 +379,6 @@ int usb_tryreset(usbdevice* kb);
 
 void print_urb_buffer(const char* prefix, const unsigned char* buffer, int actual_length, const char* file, int line, const char* function, int devnum);
 
+void u16dec_char(char* in, char* out, size_t* srclen, size_t* dstlen);
+
 #endif  // USB_H
