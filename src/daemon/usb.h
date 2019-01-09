@@ -382,4 +382,6 @@ int usb_tryreset(usbdevice* kb);
 
 void print_urb_buffer(const char* prefix, const unsigned char* buffer, int actual_length, const char* file, int line, const char* function, int devnum);
 
+int legacy_m95_send(usbdevice* kb, unsigned char* data, unsigned short len, unsigned char bRequest, unsigned short wValue);
+
 #endif  // USB_H
