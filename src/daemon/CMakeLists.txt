@@ -93,6 +93,7 @@ if (MACOS OR LINUX OR WINDOWS)
               includes.h
               input.h
               input_mac_vhid.h
+              input_windows_vmulti.h
               keymap.h
               keymap_patch.h
               led.h
@@ -178,7 +179,9 @@ elseif (WINDOWS)
     target_link_libraries(
         ckb-next-daemon
             PRIVATE
-              "usbK")
+              "usbK"
+              "Setupapi"
+              "Hid")
 endif ()
 
 # Target compile features and options
