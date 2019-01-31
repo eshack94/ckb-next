@@ -178,6 +178,11 @@ int main(int argc, char *argv[]){
     QCoreApplication::setApplicationVersion(CKB_NEXT_VERSION_STR);
     QCoreApplication::setApplicationName("ckb-next");
 
+    // Force ini on mac, as there is data loss with the native format
+#ifdef Q_OS_MAC
+    QSettings::setDefaultFormat(QSettings::IniFormat);
+#endif
+
     // Setup argument parser
     QCommandLineParser parser;
     QString errorMessage;
